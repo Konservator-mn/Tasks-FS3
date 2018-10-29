@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hw1</title>
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        #wrap {
+            width: 780px;
+            height: 900px;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        #wrap>*{
+            width: 100%;
+        }
+        .main-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            max-height: 1.5em;
+
+        }
+
+        .main-menu>li {
+            min-width: 100px;
+
+        }
+
+        .copyrights {
+            align-self: flex-end;
+            text-align: end;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <menu class="main-menu">
+            <li>home</li>
+            <li>photoapp</li>
+            <li>design</li>
+            <li>download</li>
+        </menu>
+        <main>
+            <img src="https://picsum.photos/780/400/?random" alt="Случайная картинка">
+            <article>
+                <h1>In bourbon country, a shot of scandal</h1>
+                <p>“People don’t want to do the work to find what’s the best whiskey on their palate. They want to be told,” said Lew Bryson, author of the book “Tasting Whiskey.” “Here’s somebody saying this one is the best, and everyone tries to get it. And prices just go up and up.”</p>
+                <p>In October 2012, according to the Web site Wine-Searcher, you could buy a bottle of 20-year-old Pappy Van Winkle Family Reserve for $152. Two months later, the price had tripled. By the following August, it was approaching $1,000.
+
+                    Two months after that, Buffalo Trace management called the sheriff.
+
+                    Nearly 200 bottles of 20-year-old Pappy had disappeared.</p>
+            </article>
+            <button>get started</button>
+        </main>
+        <footer class="copyrights">
+            <p>It's just a homework. No copyrights!!!</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 28.10.2018</title>
+    <style>
+        #randomList{
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        Перебор свойств объектов возращаемых селектором jQuery
+        осуществляется методом .each();
+        $(...).each(callback());
+    -->
+    <ul id="randomList"></ul>
+    <ul>
+        <li>outer 1</li>
+        <li>outer 2</li>
+        <li>outer 3</li>
+        <li>outer 4</li>
+        <li><ol>
+            <li>inner</li>
+            <li>inner</li>
+            <li>inner</li>
+            <li>inner</li>
+            <li>inner</li>
+        </ol></li>
+    </ul>
+    <script>
+        //####### Рандомный список
+        let listWrap = document.getElementById('randomList');
+        for (let i=1; i<11; ++i){
+            let liElement = document.createElement('li');
+            liElement.innerText = 'List item '+ i;
+            listWrap.appendChild(liElement);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        /*$('li').each(function () {
+            let txt = $(this).text();
+
+            $(this).html('<a href="https://www.google.com.ua/?q='+txt+'">'+txt+'</a>');
+        });*/
+        console.dir($('ol').parent());
+
+    </script>
+
+
+</body>
+</html>

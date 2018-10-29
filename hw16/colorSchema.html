@@ -1,0 +1,154 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Page Title</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .square {
+            width: 5em;
+            height: 5em;
+            background-color: black;
+        }
+        .square:nth-child(2n) {
+            border-radius: 50%;
+        }
+        .button {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+        }
+        
+    </style>    
+</head>
+<body>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <br>
+    <button class="button" onclick="colorSchema.animatedCnage(1000)">Change color schema</button>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+            let colorSchema = new ColorSchema();
+            colorSchema.add('rgb(0, 255, 255)', 'rgb(255, 0, 255)');
+            colorSchema.add('rgb(255, 0, 255)', 'rgb(255, 255, 0)');
+            colorSchema.add('rgb(255, 255, 0)', 'rgb(0, 255, 255)');
+            colorSchema.add('rgb(255, 0, 0)', 'rgb(0, 0, 255)');
+            colorSchema.add('rgb(0, 0, 255)', 'rgb(0, 255, 0)');
+        
+
+        function ColorSchema () {
+            let schemas = JSON.parse(localStorage.getItem('colorSchemas'));
+            let current = parseInt(localStorage.getItem('colorSchemaNum'));
+
+            if (!schemas){
+                schemas = [{
+                    bgColor: 'rgb(255, 255, 255)',
+                    squareColor: 'rgb(0, 0, 0)'
+                },{
+                    bgColor: 'rgb(200, 200, 200)',
+                    squareColor: 'rgb(10, 200, 10)'
+                }];
+                localStorage.setItem('colorSchemas', JSON.stringify(schemas));
+            }
+
+            if (!current || current >= schemas.length) {
+                current = 0;
+                localStorage.setItem('colorSchemaNum', current);
+            }
+            let button = $('.button');
+
+
+            let square = $('.square');
+            let body = $('body');
+
+            let setColor = function (bodyColor, squareColor) {
+                square.css('backgroundColor', squareColor);
+                body.css('backgroundColor', bodyColor);
+            };
+
+            let setCurrent = function () {
+                let schema = schemas[current];
+                localStorage.setItem('colorSchemaNum', current);
+                setColor(schema.bgColor, schema.squareColor);
+            };
+
+            this.animatedCnage = function (period) {
+                let startTime = Date.now();
+
+                let rgbBodyStart = converColor(schemas[current].bgColor);
+                let rgbSquareStart = converColor(schemas[current].squareColor);
+
+                if (++current === schemas.length) current = 0;
+                localStorage.setItem('colorSchemaNum', current);
+
+                let rgbBodyEnd = converColor(schemas[current].bgColor);
+                let rgbSquareEnd = converColor(schemas[current].squareColor);
+
+                let rgbBodyDistance = [];
+                let rgbSquareDistance = [];
+
+                for (let i = 0;i<3; ++i){
+                    rgbBodyDistance[i] = rgbBodyEnd[i] - rgbBodyStart[i];
+                    rgbSquareDistance[i] = rgbSquareEnd[i] - rgbSquareStart[i];
+                }
+                button.attr('disabled', true);
+                (function timer() {
+                    setTimeout(function () {
+                        let comletePart = (Date.now() - startTime)/period;
+
+                        if (comletePart<1){
+                            let rgbBodyCurrent = [];
+                            let rgbSquareCurrent = [];
+                            for (let i = 0;i<3; ++i){
+                                rgbBodyCurrent[i] = Math.round(rgbBodyStart[i] + comletePart*rgbBodyDistance[i]);
+                                rgbSquareCurrent[i] = Math.round(rgbSquareStart[i] + comletePart*rgbSquareDistance[i]);
+                            }
+                            setColor(convertRgbToStr(rgbBodyCurrent), convertRgbToStr(rgbSquareCurrent));
+                            timer();
+                        } else {
+                            setCurrent();
+                            button.attr('disabled', false);
+                        }
+                    }, 1);
+                })();
+                function converColor(colorTxt) {
+                    let rgbArr = colorTxt.replace(/rgb|\(|\)|\s/gi,'').split(',');
+                    rgbArr.forEach((elem, num, arr)=>{
+                        arr[num] = parseInt(elem);
+                    });
+                    return rgbArr;
+
+                }
+                function convertRgbToStr(arr) {
+                    return 'rgb('+arr.join(', ')+')';
+                }
+            };
+
+            this.add = function (bgColor, squareColor) {
+                if (!schemas.find((element)=>{
+                    return element.bgColor == bgColor && element.squareColor == squareColor})
+                ) {
+                    schemas.push({
+                        bgColor: bgColor,
+                        squareColor: squareColor
+                    });
+                    localStorage.setItem('colorSchemas', JSON.stringify(schemas));
+                }
+
+            };
+            setCurrent();
+        }
+    </script>
+</body>
+</html>
