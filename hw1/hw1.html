@@ -4,39 +4,76 @@
     <meta charset="UTF-8">
     <title>hw1</title>
     <style>
-
+        /*
+        #####  prevent Defaults  ######
+        */
+        li {
+            list-style: none;
+        }
+        .main-menu, .main-menu>li {
+            margin-block-start: 0px;
+            margin-block-end: 0px;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 0px;
+        }
+        /*
+        #####  Styles  ######
+        */
         body {
             display: flex;
             justify-content: center;
-            text-align: center;
         }
         #wrap {
-            width: 780px;
-            height: 900px;
-
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
             display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-        }
-        #wrap>*{
-            width: 100%;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: stretch;
         }
         .main-menu {
-            list-style: none;
+            height: 6%;
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             justify-content: center;
-            max-height: 1.5em;
-
+            align-items: center;
+            text-transform: uppercase;
+            color: rgb(39, 167, 142);
+            font-weight: 700;
+            margin-bottom: 4px;
         }
-
+        #main {
+            max-height: 94%;
+            width: 100%;
+            flex-grow: 1;
+        }
         .main-menu>li {
-            min-width: 100px;
-
+            font-size: 70%;
+            margin-right: 5%;
+            padding: 3% 4%;
+            width: 8%;
         }
-
+        .image {
+            width: 100%;
+        }
+        .button, .main-menu>li:hover {
+            cursor: pointer;
+            background-color: rgb(39, 167, 142);
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 3px;
+        }
+        .button {
+            padding: 2%;
+        }
+        .article>h1, .button {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
         .copyrights {
-            align-self: flex-end;
+            padding-right: 15px;
             text-align: end;
         }
     </style>
@@ -49,9 +86,9 @@
             <li>design</li>
             <li>download</li>
         </menu>
-        <main>
-            <img src="https://picsum.photos/780/400/?random" alt="Случайная картинка">
-            <article>
+        <main id="main">
+            <img class="image" src="https://picsum.photos/1280/780/?random" alt="Случайная картинка">
+            <article class="article">
                 <h1>In bourbon country, a shot of scandal</h1>
                 <p>“People don’t want to do the work to find what’s the best whiskey on their palate. They want to be told,” said Lew Bryson, author of the book “Tasting Whiskey.” “Here’s somebody saying this one is the best, and everyone tries to get it. And prices just go up and up.”</p>
                 <p>In October 2012, according to the Web site Wine-Searcher, you could buy a bottle of 20-year-old Pappy Van Winkle Family Reserve for $152. Two months later, the price had tripled. By the following August, it was approaching $1,000.
@@ -60,11 +97,32 @@
 
                     Nearly 200 bottles of 20-year-old Pappy had disappeared.</p>
             </article>
-            <button>get started</button>
+            <button class="button">get started</button>
         </main>
         <footer class="copyrights">
             <p>It's just a homework. No copyrights!!!</p>
         </footer>
     </div>
+    <script>
+        setContentSize();
+        window.onresize = setContentSize;
+        
+        function setContentSize () {
+            let wrap = document.getElementById('wrap');
+            let maxWidth = 1280;
+            let maxHeight = 1626;
+            let kHeight = window.innerHeight/maxHeight;
+            let kWidth = window.innerWidth/maxWidth;
+            if (kHeight>kWidth){
+                wrap.style.width = window.innerWidth +'px';
+                wrap.style.height = Math.round(maxHeight*kWidth)*0.98+'px';
+            } else {
+                wrap.style.width = Math.round(maxWidth*kHeight)+'px';
+                wrap.style.height = window.innerHeight*0.98+'px';
+            }
+            
+        }
+        
+    </script>
 </body>
 </html>
