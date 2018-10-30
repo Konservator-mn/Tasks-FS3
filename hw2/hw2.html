@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hw3</title>
+    <style>
+        /*
+        Change defaults
+         */
+        p {
+            -webkit-margin-before: 0px;
+            -webkit-margin-after: 0px;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+        }
+        /*
+        Styles
+         */
+        #wrap{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        .scaleImage {
+            border: 8px solid rgb(0, 200, 200);
+            width: 400px;
+            height: 200px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position-x: 50%;
+            background-position-y: 0%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 30px;
+            transition: background-size 1s ease 0s;
+        }
+        .scaleImage:hover {
+            background-size: 110%;
+        }
+        .scaleImage:first-child {
+            background-image: url("./1.png");
+            border-right-width: 4px;
+        }
+        .scaleImage:last-child {
+            background-image: url("./2.jpeg");
+            border-left-width: 4px;
+        }
+        .text {
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .text>p {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 1em;
+        }
+        .text>a {
+            text-decoration: none;
+            color: #fff;
+
+        }
+        .arrow {
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            background-color: white;
+            display: inline-block;
+            cursor: pointer;
+            vertical-align: middle;
+            background-image: url("./arrow-right.png");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 70%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="scaleImage">
+            <div class="text">
+                <p>Meet the ultimate<br>fitness app.</p>
+                <a href="#">Start exploring</a>
+                <div class="arrow"></div>
+            </div>
+        </div>
+        <div class="scaleImage">
+            <div class="text">
+                <p>See how we<br>redefine fitness.</p>
+                <a href="#">The Fitbit difference</a>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
